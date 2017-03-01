@@ -1,0 +1,241 @@
+#: kivy 1.9
+#: import ScreenManager kivy.uix.screenmanager.ScreenManager
+#: import Screen kivy.uix.screenmanager.ScreenManager
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+ScreenManagement:
+    transition: SlideTransition()
+    HomeScreen:
+    AlarmScreen:
+    LightScreen:
+    MediaScreen:
+    OptionScreen:
+    TriggerScreen:
+
+<AnimatedLabel@ButtonBehavior+AsyncImage>
+
+<MyButton>
+    font_size:24
+    background_normal:'img/button_normal.png'
+    background_down: 'img/button_down.png'
+    font_name: 'Roboto-Regular'
+
+<HomeScreen>:
+    name: 'home'
+    font_name: 'Roboto-Regular'
+    BoxLayout:
+        orientation: 'vertical'
+        cols:2
+        spacing:10
+        padding:10
+        AnimatedLabel:
+            id: ani
+            # Make Button change it's opacity when pressed for visual indication
+            opacity: 1 if self.state == 'normal' else .5
+            source: 'img/animation.gif'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint_y: None
+            size_hint_x: None
+            width: self.parent.width
+            height: dp(250)
+            on_press: app.screen_toggle()
+            # Introduce Label in case you want text on top of the image
+            Label:
+                center: ani.center
+                font_size:90
+                # change text acc to but state
+                text: "JARVUS" if ani.state == 'normal' else 'jarvus'
+        GridLayout:
+            cols:4
+            rows:1
+            spacing:10
+            padding:10
+            MyButton:
+                text: 'ALARMS'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'alarm'
+                    self.ding1()
+            MyButton:
+                text: 'LIGHTS'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'lights'
+                    self.ding1()
+            MyButton:
+                text: 'MEDIA'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'media'
+                    self.ding1()
+            MyButton:
+                text: 'OPTIONS'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'option'
+                    self.ding1()
+        StatusBox:
+            orientation: 'horizontal'
+            cols:3
+            rows:1
+
+<AlarmScreen>:
+    name: 'alarm'
+    BoxLayout:
+        orientation: 'horizontal'
+        GridLayout:
+            size_hint_x: 3
+            size_hint_y: 1
+            cols:4
+            rows:2
+            spacing:5
+            padding:10
+            MyButton:
+                text: 'hour+'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyButton:
+                text: 'hour-'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyButton:
+                text: 'min+'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyButton:
+                text: 'min-'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyProfileButton:
+                id: profile_button
+                text: self.active_profile
+                on_press:
+                    self.switch_profile()
+            MyButton:
+                text: 'toggle'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyButton:
+                text: 'weekends'
+                on_press:
+                    self.adjust_alarm(profile_button, self.text)
+            MyButton:
+                text: 'back home'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'home'
+                    self.ding2()
+        StatusBox:
+
+<OptionScreen>:
+    name: 'option'
+    BoxLayout:
+        orientation: 'horizontal'
+        GridLayout:
+            size_hint_x: 3
+            size_hint_y: 1
+            cols:4
+            rows:2
+            spacing:10
+            padding:10
+            MyButton:
+                text: 'back home'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'home'
+                    self.ding2()
+        StatusBox:
+
+<LightScreen>:
+    name: 'lights'
+    BoxLayout:
+        orientation: 'horizontal'
+        GridLayout:
+            size_hint_x: 3
+            size_hint_y: 1
+            cols:4
+            rows:2
+            spacing:10
+            padding:10
+            MyButton:
+                text: 'back home'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'home'
+                    self.ding2()
+        StatusBox:
+
+<MediaScreen>:
+    name: 'media'
+    BoxLayout:
+        orientation: 'horizontal'
+        GridLayout:
+            size_hint_x: 3
+            size_hint_y: 1
+            cols:4
+            rows:2
+            spacing:10
+            padding:10
+            MyButton:
+                text: 'back home'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'home'
+                    self.ding2()
+        StatusBox:
+
+<Profile1>:
+    font_size: 30
+    halign: 'center'
+    valign: 'middle'
+    background_color: .31, .25, .47, 1
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Profile2>:
+    font_size: 30
+    halign: 'center'
+    valign: 'middle'
+    background_color: .51, .71, .92, 1
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<SystemInfo>:
+    font_size: 30
+    halign: 'center'
+    valign: 'middle'
+
+<StatusBox>:
+    orientation: 'vertical'
+    cols:1
+    rows:3
+    spacing:10
+    padding:10
+
+<MyProfileButton>:
+
+<TriggerScreen>:
+    name: 'trigger'
+    id: trigger
+    BoxLayout:
+        orientation: 'vertical'
+        cols:1
+        rows:1
+        Button:
+            font_size: 90
+            halign: 'center'
+            valign: 'middle'
+            text: 'STOP ALARM'
+            on_press:
+                app.stop_alarm()
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'home'
