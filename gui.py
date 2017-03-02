@@ -83,8 +83,8 @@ class StatusBox(BoxLayout):
         self.add_widget(self.p2)
 
     def update(self, *args):
-        self.p1.text = "PROFILE 1\n" + self.alarm.fetch(0)
-        self.p2.text = "PROFILE 2\n" + self.alarm.fetch(1)
+        self.p1.text = self.alarm.fetch(0)
+        self.p2.text = self.alarm.fetch(1)
         self.sys.text = self.alarm.now()
         for profile in self.alarm.profiles:
             if profile.running:

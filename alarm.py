@@ -67,7 +67,7 @@ class Alarm(threading.Thread):
         # add a day to the alarm
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
         p.alarm = p.alarm.replace(day=tomorrow.day, month=tomorrow.month, year=tomorrow.year)
-        p.alarm = datetime.datetime.now() + datetime.timedelta(seconds=5)
+        task_id = str(self.profiles.index(p))
         alarm = p.alarm
 
         while p.alarm.weekday() > 4 and p.no_weekends:
