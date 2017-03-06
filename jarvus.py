@@ -34,7 +34,7 @@ class Jarvus(App):
 
     def turn_screen_on(self):
         try:
-            bash_command = '/usr/bin/xset -display ":0.0" dpms force on'
+            bash_command = "./screen_on.sh"
             subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
             self.screen_on = True
         except Exception as ee:
@@ -42,7 +42,7 @@ class Jarvus(App):
 
     def turn_screen_off(self):
         try:
-            bash_command = "/usr/bin/xset -display ':0.0' dpms force off"
+            bash_command = "./screen_off.sh"
             subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
             self.screen_on = False
         except Exception as ee:
