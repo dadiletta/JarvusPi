@@ -1,11 +1,9 @@
 import gui  # needed for kivy objects
-import os
 import comms
 import alarm
 import helper
 import subprocess
 
-os.environ['DISPLAY'] = "0"
 
 from kivy.app import App
 from kivy.lang import Builder
