@@ -5,7 +5,7 @@ import alarm
 import helper
 import subprocess
 
-os.environ['DISPLAY'] = ":0"
+os.environ['DISPLAY'] = "0"
 
 from kivy.app import App
 from kivy.lang import Builder
