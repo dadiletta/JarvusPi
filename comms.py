@@ -26,7 +26,7 @@ class Comms(threading.Thread):
         # add the handlers to the logger
         self.logger.addHandler(log_handler)
         self.log('comms init complete')
-
+        self.phue_status = self.connect_phue()
         self.p1_status = "home"
         self.p2_status = "home"
         pygame.mixer.init()
@@ -72,6 +72,22 @@ class Comms(threading.Thread):
         except Exception as ee:
             self.log("Failed bluetooth lookup" + ee.__str__())
             return False
+
+    def connect_phue(self):
+        try:
+            from phue import Bridge
+        except Exception as ee:
+            self.log("Error loading phue: " + ee.__str__())
+            return False
+
+        try:
+            b = Bridge(Private.Private.BRIDGE_IP)
+            b.connect()
+        except Exception as ee:
+            self.log("Error connecting phue: " + ee.__str__())
+            return False
+        self.log("phue connected")
+        return True
 
     # ADAFRUIT.IO
     def aio_send(self, feed, msg):

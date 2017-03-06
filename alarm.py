@@ -85,7 +85,7 @@ class Alarm(threading.Thread):
         task_id = str(self.profiles.index(profile))
         self.comms_system.log('Waking up ' + task_id)
         self.comms_system.aio_send(task_id, "waking")
-        self.comms_system.ifttt('wakeup', task_id)
+        self.comms_system.ifttt('wakeup' + task_id)
         self.comms_system.play_speech("Good morning. It is time for you to wake up.")
 
     def snooze(self, profile):

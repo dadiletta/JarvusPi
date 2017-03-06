@@ -1,8 +1,11 @@
 import gui  # needed for kivy objects
+import os
 import comms
 import alarm
 import helper
 import subprocess
+
+os.environ['DISPLAY'] = ":0"
 
 from kivy.app import App
 from kivy.lang import Builder
@@ -29,20 +32,40 @@ class Jarvus(App):
         this_app = Builder.load_file('gui.kv')
         return this_app
 
+    def turn_screen_on(self):
+        try:
+            bash_command = "xset dpms force on"
+            subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+            self.screen_on = True
+        except Exception as ee:
+            self.comms_system.log("Failed to power screen on: " + ee.__str__())
+
+    def turn_screen_off(self):
+        try:
+            bash_command = "xset dpms force off"
+            subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+            self.screen_on = False
+        except Exception as ee:
+            self.comms_system.log("Failed to power screen off: " + ee.__str__())
+
     def screen_toggle(self):
         print('Turning screen off')
         # Doesn't work
         try:
             if self.screen_on:
-                self.screen_on = False
+                self.turn_screen_off()
+                self.comms_system.play_fx(helper.DING1)
+                '''
                 bash_command = "sudo rpi-backlight off"
                 subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-                self.comms_system.play_fx(helper.DING1)
+                '''
 
             else:
+                '''
                 bash_command = "sudo rpi-backlight on"
                 subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-                self.screen_on = True
+                '''
+                self.turn_screen_on()
                 self.comms_system.play_fx(helper.DING2)
 
         except Exception as ee:

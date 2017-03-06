@@ -5,12 +5,12 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
 Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 
 ### To-Do List
-    - AlarmScreen
-        - Play alarm sound until stopped
-        - Two profile implementation
+    - Bug fix: Why did Jarvus's alarm go off on Saturday? 
+    - Bug fix: Don't set to the next day if current time is < alarm time
+    - Review web calls - gradual 
     - Incorperate play_speech from https://github.com/mattdy/alarmpi/blob/master/MediaPlayer.py 
         - Festivus: https://learn.adafruit.com/speech-synthesis-on-the-raspberry-pi/speak
-    - Phillips Hue
+    - Phillips Hue https://github.com/studioimaginaire/phue
     - FontAwesome implementation
     - Add quit button
     - MediaScreen
@@ -33,7 +33,7 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 
 ## Hardware
 
-- Raspberry Pi 3: https://www.amazon.com/gp/product/B01CD5VC92/
+- Raspberry Pi 3 + SD card: https://www.amazon.com/gp/product/B01CD5VC92/
 - 7" Touch Screen: https://www.amazon.com/gp/product/B0153R2A9I/
 - Display case: https://www.amazon.com/gp/product/B01FZ2RJN8/
                 https://www.amazon.com/gp/product/B01HKWAJ6K/
@@ -80,18 +80,17 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
     - `sudo python3 -m pip install playsound`
 - **APScheduler**
     - `sudo python3 -m pip install apscheduler`
-    - `sudo python3 -m pip install PyMongo`
-    - `sudo python3 -m pip install SQLAlchemy`
-    - http://apscheduler.readthedocs.io/en/3.0/userguide.html#installing-apscheduler
 - **RPI-Backlight**
     - https://github.com/jakeh12/rpi-backlight
     - `git clone https://github.com/jakeh12/rpi-backlight.git`
     - `cd rpi-backlight`
     - `make`
     - `sudo make install`
-- **Setup Private.py**
+- **Setup Folder**
     - `git clone http://github.com/dadiletta/JarvusPi`
-    - `touch Private.py`
+    - `touch log_jarvus.log`
+    - `mkdir obj`
+    - `touch obj/profiles.pkl`
     - `sudo nano Private.py`  <-- paste your private vars
         
             class Private(object):
@@ -105,7 +104,7 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 - **Auto-Run Jarvus**
     - https://www.raspberrypi.org/documentation/linux/usage/cron.md
     - `sudo crontab -e` and paste the following:
-    - `@reboot `
+    - `@reboot sudo python3 /home/user/dex/JarvusPi/jarvus.py` (you may need to adjust your path)
     - `0 0 * * *  reboot` to make sure the script keeps running
 
 ## Customizing Jarvus

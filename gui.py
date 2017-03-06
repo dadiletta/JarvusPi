@@ -88,6 +88,7 @@ class StatusBox(BoxLayout):
         self.sys.text = self.alarm.now()
         for profile in self.alarm.profiles:
             if profile.running:
+                # if the alarm is running, change screen
                 App.get_running_app().root.current = 'trigger'
                 comms = helper.get_comms()
                 comms.play_fx(helper.DING2)
