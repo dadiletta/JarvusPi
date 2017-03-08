@@ -5,6 +5,7 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
 Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 
 ### To-Do List
+    - Bug fix: Screen toggle issues: start by switching to linusg's rpi-backlight
     - Bug fix: Why did Jarvus's alarm go off on Saturday? 
     - Bug fix: Don't set to the next day if current time is < alarm time
     - Review web calls - gradual 
@@ -81,7 +82,7 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 - **APScheduler**
     - `sudo python3 -m pip install apscheduler`
 - **RPI-Backlight**
-    - https://github.com/jakeh12/rpi-backlight
+    - https://github.com/linusg/rpi-backlight
     - `git clone https://github.com/jakeh12/rpi-backlight.git`
     - `cd rpi-backlight`
     - `make`

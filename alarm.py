@@ -24,7 +24,7 @@ class Alarm(threading.Thread):
         self.scheduler.start()
         self.comms_system.log('alarm init complete')
 
-        # TODO: in case we're recovering from a crash, check if alarms need to be scheduled
+        # in case we're recovering from a crash, check if alarms need to be scheduled
         for profile in self.profiles:
             if profile.alarm_on:
                 alarm = profile.alarm
@@ -50,7 +50,7 @@ class Alarm(threading.Thread):
         if self.profiles[profile_index].no_weekends:
             weekends = "skip weekends\n"
         else:
-            weekends = "include weekends\n"
+            weekends = "include weekends"
         return alarm + alarm_day + alarm_on + weekends
 
     def save_profiles(self):
@@ -66,6 +66,9 @@ class Alarm(threading.Thread):
     def set_next_alarm(self, p):
         # add a day to the alarm
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        # in case we're setting the alarm early for the same day
+        if datetime.datetime.now().time() < p.alarm.time():
+            tomorrow -= datetime.timedelta(days=1)
         p.alarm = p.alarm.replace(day=tomorrow.day, month=tomorrow.month, year=tomorrow.year)
         task_id = str(self.profiles.index(p))
         alarm = p.alarm

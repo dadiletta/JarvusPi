@@ -18,7 +18,7 @@ from kivy.clock import Clock
 kivy.require("1.9.1")
 Config.set('graphics', 'fullscreen', '1')
 
-# os.environ['DISPLAY'] = ":0"
+os.environ['DISPLAY'] = ":0"
 
 
 class HomeScreen(Screen):
