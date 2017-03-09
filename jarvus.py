@@ -43,7 +43,7 @@ class Jarvus(App):
                 self.comms_system.play_fx(helper.DING1)
 
             else:
-                self.backlight.set_power(False)
+                self.backlight.set_power(True)
                 self.comms_system.play_fx(helper.DING2)
 
         except Exception as ee:
