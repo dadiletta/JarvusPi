@@ -30,6 +30,7 @@ class Jarvus(App):
 
         self.backlight = bl
         self.backlight.set_power(True)
+        self.backlight.
 
         this_app = Builder.load_file('gui.kv')
         return this_app
@@ -38,12 +39,14 @@ class Jarvus(App):
         print('Turning screen off')
         # Doesn't work
         try:
-            if self.backlight.get_power():
+            if self.screen_on():
                 self.backlight.set_power(False)
+                self.screen_on = False
                 self.comms_system.play_fx(helper.DING1)
 
             else:
                 self.backlight.set_power(True)
+                self.screen_on = True
                 self.comms_system.play_fx(helper.DING2)
 
         except Exception as ee:
