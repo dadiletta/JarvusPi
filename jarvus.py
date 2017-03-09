@@ -3,7 +3,7 @@ import comms
 import alarm
 import helper
 import subprocess
-
+import rpi_backlight as bl
 
 from kivy.app import App
 from kivy.lang import Builder
@@ -13,6 +13,7 @@ class Jarvus(App):
     comms_system = comms.Comms()
     alarm = alarm.Alarm(comms_system)
     screen_on = True
+    backlight = bl
 
     def build(self):
         # comms thread
@@ -27,43 +28,22 @@ class Jarvus(App):
         helper.set_alarm(self.alarm)
         helper.set_comms(self.comms_system)
 
+        self.backlight = bl
+        self.backlight.set_power(True)
+
         this_app = Builder.load_file('gui.kv')
         return this_app
-
-    def turn_screen_on(self):
-        try:
-            bash_command = "sudo ./screen_on.sh"
-            subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-            self.screen_on = True
-        except Exception as ee:
-            self.comms_system.log("Failed to power screen on: " + ee.__str__())
-
-    def turn_screen_off(self):
-        try:
-            bash_command = "sudo ./screen_off.sh"
-            subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-            self.screen_on = False
-        except Exception as ee:
-            self.comms_system.log("Failed to power screen off: " + ee.__str__())
 
     def screen_toggle(self):
         print('Turning screen off')
         # Doesn't work
         try:
-            if self.screen_on:
-                self.turn_screen_off()
+            if self.backlight.get_power():
+                self.backlight.set_power(False)
                 self.comms_system.play_fx(helper.DING1)
-                '''
-                bash_command = "sudo rpi-backlight off"
-                subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-                '''
 
             else:
-                '''
-                bash_command = "sudo rpi-backlight on"
-                subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
-                '''
-                self.turn_screen_on()
+                self.backlight.set_power(False)
                 self.comms_system.play_fx(helper.DING2)
 
         except Exception as ee:
