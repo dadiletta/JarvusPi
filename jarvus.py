@@ -30,7 +30,7 @@ class Jarvus(App):
 
         self.backlight = bl
         self.backlight.set_power(True)
-        self.backlight.
+        self.screen_on = True
 
         this_app = Builder.load_file('gui.kv')
         return this_app
