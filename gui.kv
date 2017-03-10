@@ -14,12 +14,14 @@ ScreenManagement:
 
 <AnimatedLabel@ButtonBehavior+AsyncImage>
 
-<MyButton>
+<MyButton>:
     font_size:24
     background_normal:'img/button_normal.png'
     background_down: 'img/button_down.png'
     font_name: 'Roboto-Regular'
     on_press: app.backlight.set_power(True)
+
+<MyWebButton>:
 
 <HomeScreen>:
     name: 'home'
@@ -178,6 +180,8 @@ ScreenManagement:
             rows:2
             spacing:10
             padding:10
+            MyWebButton:
+                text: 'netflix'
             MyButton:
                 text: 'back home'
                 on_press:

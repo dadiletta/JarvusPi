@@ -1,7 +1,7 @@
-
 import helper
 import kivy
 import os
+import webbrowser
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -111,6 +111,18 @@ class MyButton(Button):
         self.alarm.adjust_alarm(btn.text, change)
 
 
+class MyWebButton(MyButton):
+    def __init__(self, **kwargs):
+        # kivy stuff
+        super(MyWebButton, self).__init__(**kwargs)
+        buttoncallback = lambda: self.open_website(self.text)
+        self.bind(on_press=buttoncallback)
+
+    def open_website(self, label_text):
+        if 'netflix' in label_text:
+            webbrowser.open('http://netflix.com', new=2)
+
+
 class MyProfileButton(MyButton):
     def __init__(self, **kwargs):
         # kivy stuff
@@ -124,5 +136,3 @@ class MyProfileButton(MyButton):
         else:
             self.active_profile = "PROFILE 2"
         self.text = self.active_profile
-
-
