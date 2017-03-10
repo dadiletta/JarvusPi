@@ -38,20 +38,16 @@ class Jarvus(App):
     def screen_toggle(self):
         print('Turning screen off')
         # Doesn't work
-        try:
-            if self.screen_on():
-                self.backlight.set_power(False)
-                self.screen_on = False
-                self.comms_system.play_fx(helper.DING1)
+        if self.screen_on:
+            self.backlight.set_power(False)
+            self.screen_on = False
+            self.comms_system.play_fx(helper.DING1)
 
-            else:
-                self.backlight.set_power(True)
-                self.screen_on = True
-                self.comms_system.play_fx(helper.DING2)
+        else:
+            self.backlight.set_power(True)
+            self.screen_on = True
+            self.comms_system.play_fx(helper.DING2)
 
-        except Exception as ee:
-            self.comms_system.log("Back light toggle failed: " + ee.__str__())
-            return
 
     # bouncing command from kivy to alarm thread
     def stop_alarm(self):
