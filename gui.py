@@ -34,7 +34,9 @@ class LightScreen(Screen):
 
 
 class MediaScreen(Screen):
-    pass
+    def load_youtube(self):
+        print("i am executed")
+        webbrowser.open("http://youtube.com/")
 
 
 class OptionScreen(Screen):
@@ -109,14 +111,6 @@ class MyButton(Button):
 
     def adjust_alarm(self, btn, change):
         self.alarm.adjust_alarm(btn.text, change)
-
-
-class MyWebButton(MyButton):
-    def __init__(self, **kwargs):
-        # kivy stuff
-        super(MyWebButton, self).__init__(**kwargs)
-        buttoncallback = lambda: webbrowser.open('http://netflix.com')
-        self.bind(on_press=buttoncallback)
 
 
 class MyProfileButton(MyButton):

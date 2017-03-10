@@ -28,12 +28,21 @@ class Jarvus(App):
         helper.set_alarm(self.alarm)
         helper.set_comms(self.comms_system)
 
-        self.backlight = bl
-        self.backlight.set_power(True)
-        self.screen_on = True
+        try:
+            self.backlight = bl
+            self.backlight.set_power(True)
+            self.screen_on = True
+        except Exception as ee:
+            self.comms_system.log('Backlight failed: ' + ee.__str__())
 
         this_app = Builder.load_file('gui.kv')
         return this_app
+
+    def backlight_on(self):
+        try:
+            self.backlight.set_power(True)
+        except Exception as ee:
+            print('Failed backlight: ' + ee.__str__())
 
     def screen_toggle(self):
         print('Turning screen off')

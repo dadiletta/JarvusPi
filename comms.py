@@ -26,7 +26,7 @@ class Comms(threading.Thread):
         # add the handlers to the logger
         self.logger.addHandler(log_handler)
         self.log('comms init complete')
-        self.phue_status = self.connect_phue()
+        # self.phue_status = self.connect_phue()
         self.p1_status = "home"
         self.p2_status = "home"
         pygame.mixer.init()

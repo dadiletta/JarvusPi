@@ -19,9 +19,7 @@ ScreenManagement:
     background_normal:'img/button_normal.png'
     background_down: 'img/button_down.png'
     font_name: 'Roboto-Regular'
-    on_press: app.backlight.set_power(True)
-
-<MyWebButton>:
+    on_press: app.backlight_on()
 
 <HomeScreen>:
     name: 'home'
@@ -180,8 +178,9 @@ ScreenManagement:
             rows:2
             spacing:10
             padding:10
-            MyWebButton:
+            MyButton:
                 text: 'netflix'
+                on_press:root.load_youtube()
             MyButton:
                 text: 'back home'
                 on_press:
