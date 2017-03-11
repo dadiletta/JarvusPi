@@ -141,6 +141,10 @@ ScreenManagement:
             spacing:10
             padding:10
             MyButton:
+                id: btnExit
+                text: "Exit"
+                on_press: app.stop()
+            MyButton:
                 text: 'back home'
                 on_press:
                     root.manager.transition.direction = 'right'
