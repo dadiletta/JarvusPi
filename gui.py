@@ -1,7 +1,6 @@
 import helper
 import kivy
 import os
-import webbrowser
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -34,9 +33,7 @@ class LightScreen(Screen):
 
 
 class MediaScreen(Screen):
-    def load_youtube(self):
-        print("i am executed")
-        webbrowser.open("http://youtube.com/")
+    pass
 
 
 class OptionScreen(Screen):

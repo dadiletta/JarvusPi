@@ -2,6 +2,7 @@ import gui  # needed for kivy objects
 import comms
 import alarm
 import helper
+import webbrowser
 import subprocess
 import rpi_backlight as bl
 
@@ -37,6 +38,10 @@ class Jarvus(App):
 
         this_app = Builder.load_file('gui.kv')
         return this_app
+
+    def load_youtube(self):
+        print("i am executed")
+        webbrowser.open("http://youtube.com/")
 
     def backlight_on(self):
         try:
