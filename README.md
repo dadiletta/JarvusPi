@@ -7,7 +7,6 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 ### To-Do List
     - Bug fix: Why isn't laurpi logging? 
     - Bug fix: Screen toggle issues: start by switching to linusg's rpi-backlight
-    - Bug fix: Why did Jarvus's alarm go off on Saturday? 
     - Bug fix: Don't set to the next day if current time is < alarm time [x]
     - Review web calls - gradual 
     - Incorperate play_speech from https://github.com/mattdy/alarmpi/blob/master/MediaPlayer.py 
@@ -88,6 +87,10 @@ Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
     - `sudo nano /etc/udev/rules.d/backlight-permissions.rules`
     - Insert the line: 
     - `SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"`
+- **CEFPython3**
+    - https://github.com/cztomczak/cefpython/blob/master/docs/Build-instructions.md
+    - https://github.com/cztomczak/cefpython/blob/master/docs/Build-instructions.md#requirements
+    - `~/cefpython/tools $ sudo python3 build.py 56.0`
 - **Setup Folder**
     - `git clone http://github.com/dadiletta/JarvusPi`
     - `touch log_jarvus.log`

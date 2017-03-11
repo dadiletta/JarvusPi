@@ -64,17 +64,21 @@ class Alarm(threading.Thread):
             self.comms_system.save_obj(self.profiles, 'profile')
 
     def set_next_alarm(self, p):
+        p.running = False
         # add a day to the alarm
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
         # in case we're setting the alarm early for the same day
         if datetime.datetime.now().time() < p.alarm.time():
             tomorrow -= datetime.timedelta(days=1)
         p.alarm = p.alarm.replace(day=tomorrow.day, month=tomorrow.month, year=tomorrow.year)
-        task_id = str(self.profiles.index(p))
-        alarm = p.alarm
 
         while p.alarm.weekday() > 4 and p.no_weekends:
             p.alarm += datetime.timedelta(days=1)
+
+        task_id = str(self.profiles.index(p))
+        alarm = p.alarm
+
         try:
             print(self.scheduler.get_jobs())
             self.scheduler.add_job(lambda: self.sound_alarm(p), 'date', run_date=alarm,
@@ -84,12 +88,16 @@ class Alarm(threading.Thread):
         self.save_profiles()
 
     def sound_alarm(self, profile):
-        profile.running = True
-        task_id = str(self.profiles.index(profile))
-        self.comms_system.log('Waking up ' + task_id)
-        self.comms_system.aio_send(task_id, "waking")
-        self.comms_system.ifttt('wakeup' + task_id)
-        self.comms_system.play_speech("Good morning. It is time for you to wake up.")
+        # extra check so we don't run the alarm during the weekend if we didn't mean to
+        if (profile.no_weekends and datetime.date.today().weekday() < 5) or not profile.no_weekends:
+            profile.running = True
+            task_id = str(self.profiles.index(profile))
+            self.comms_system.log('Waking up ' + task_id)
+            self.comms_system.aio_send(task_id, "waking")
+            self.comms_system.ifttt('wakeup' + task_id)
+            self.comms_system.play_speech("Good morning. It is time for you to wake up.")
+        else:
+            self.set_next_alarm(profile)
 
     def snooze(self, profile):
         task_id = str(self.profiles.index(profile))
