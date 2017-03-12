@@ -42,6 +42,12 @@ class Jarvus(App):
     def load_youtube(self):
         print("i am executed")
         webbrowser.open("http://youtube.com/", new=1, autoraise=True)
+        try:
+            bash_command = "x-www-browser http://youtube.com"
+            subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+        except Exception as ee:
+            self.log("Web browser command failed: " + ee.__str__())
+            return
 
     def backlight_on(self):
         try:
