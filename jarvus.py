@@ -41,7 +41,7 @@ class Jarvus(App):
 
     def load_youtube(self):
         print("i am executed")
-        webbrowser.open("http://youtube.com/")
+        webbrowser.open("http://youtube.com/", new=1, autoraise=True)
 
     def backlight_on(self):
         try:

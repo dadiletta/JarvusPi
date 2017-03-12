@@ -77,10 +77,10 @@ class Alarm(threading.Thread):
             p.alarm += datetime.timedelta(days=1)
 
         task_id = str(self.profiles.index(p))
-        alarm = p.alarm
 
         try:
             print(self.scheduler.get_jobs())
+            alarm = p.alarm
             self.scheduler.add_job(lambda: self.sound_alarm(p), 'date', run_date=alarm,
                                    id=task_id, replace_existing=True)
         except Exception as ee:
