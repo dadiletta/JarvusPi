@@ -27,14 +27,7 @@ class Alarm(threading.Thread):
         # in case we're recovering from a crash, check if alarms need to be scheduled
         for profile in self.profiles:
             if profile.alarm_on:
-                alarm = profile.alarm
-                task_id = str(self.profiles.index(profile))
-                try:
-                    self.scheduler.add_job(lambda: self.sound_alarm(profile), 'date', run_date=alarm,
-                                           id=task_id, replace_existing=True)
-                except Exception as ee:
-                    print("Error recovering alarms: " + ee.__str__())
-                    self.comms_system.log("Error recovering alarms: " + ee.__str__())
+                self.set_next_alarm(profile)
 
     def now(self):
         now = datetime.datetime.now()
@@ -144,3 +137,4 @@ class Alarm(threading.Thread):
         elif 'weekend' in change:
             p.no_weekends = not p.no_weekends
         self.save_profiles()
+        self.set_next_alarm(p)
