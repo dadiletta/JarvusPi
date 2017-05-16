@@ -60,6 +60,18 @@ class Profile2(Label):
         super(Profile2, self).__init__(**kwargs)
 
 
+class LightLabel(Label):
+    def __init__(self, **kwargs):
+        # kivy stuff
+        super(LightLabel, self).__init__(**kwargs)
+        Clock.schedule_interval(self.update, 1)
+
+    def update(self, *args):
+        comms = helper.get_comms()
+        ## DISPLAY DETECTED USERS HERE
+        self.text = "Hello Light Label!"
+
+
 class SystemInfo(Label):
     def __init__(self, **kwargs):
         # kivy stuff

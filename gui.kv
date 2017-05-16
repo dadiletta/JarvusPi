@@ -3,6 +3,7 @@
 #: import Screen kivy.uix.screenmanager.ScreenManager
 #: import SlideTransition kivy.uix.screenmanager.SlideTransition
 
+# defining all of the different screens & transitions
 ScreenManagement:
     transition: SlideTransition()
     HomeScreen:
@@ -12,8 +13,10 @@ ScreenManagement:
     OptionScreen:
     TriggerScreen:
 
+# used for animated JARVUS logo
 <AnimatedLabel@ButtonBehavior+AsyncImage>
 
+# common traits for all buttons
 <MyButton>:
     font_size:24
     background_normal:'img/button_normal.png'
@@ -45,7 +48,7 @@ ScreenManagement:
             Label:
                 center: ani.center
                 font_size:90
-                # change text acc to but state
+                # change text acc to but state. IF STATEMENTS IN KIVY!
                 text: "JARVUS" if ani.state == 'normal' else 'jarvus'
         GridLayout:
             cols:4
@@ -163,6 +166,7 @@ ScreenManagement:
             rows:2
             spacing:10
             padding:10
+            LightLabel:
             MyButton:
                 text: 'back home'
                 on_press:
@@ -230,6 +234,8 @@ ScreenManagement:
     padding:10
 
 <MyProfileButton>:
+
+<LightLabel>:
 
 <TriggerScreen>:
     name: 'trigger'

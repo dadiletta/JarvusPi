@@ -2,7 +2,7 @@ import threading
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
-
+# User preferences and data
 class Profile:
     def __init__(self, alarm=False, running=False, no_weekends=True):
         self.alarm_on = alarm
@@ -22,7 +22,7 @@ class Alarm(threading.Thread):
 
         self.scheduler = BackgroundScheduler(timezone="EST")
         self.scheduler.start()
-        self.comms_system.log('alarm init complete')
+        self.comms_system.logger.debug('alarm init complete')
 
         # in case we're recovering from a crash, check if alarms need to be scheduled
         for profile in self.profiles:
@@ -34,6 +34,7 @@ class Alarm(threading.Thread):
         return now.strftime("%I:%M:%S %p")
 
     def fetch(self, profile_index):
+        self.comms_system.logger.debug("Fetching alarm profiles")
         alarm = self.profiles[profile_index].alarm.strftime("%I:%M:%S %p\n")
         alarm_day = self.profiles[profile_index].alarm.strftime("%b %d, %Y\n")
         if self.profiles[profile_index].alarm_on:
@@ -47,9 +48,11 @@ class Alarm(threading.Thread):
         return alarm + alarm_day + alarm_on + weekends
 
     def save_profiles(self):
+        self.comms_system.logger.debug("Saving profiles to pickle")
         self.comms_system.save_obj(self.profiles, 'profile')
 
     def load_profiles(self):
+        self.comms_system.logger.debug("leading profile from pickle")
         p = self.comms_system.load_obj('profile')
         if p:
             self.profiles = p
@@ -77,7 +80,7 @@ class Alarm(threading.Thread):
             self.scheduler.add_job(lambda: self.sound_alarm(p), 'date', run_date=alarm,
                                    id=task_id, replace_existing=True)
         except Exception as ee:
-            print("Error adding: " + ee.__str__())
+            self.comms_system.logger.error("Error adding: " + ee.__str__())
         self.save_profiles()
 
     def sound_alarm(self, profile):
@@ -93,19 +96,21 @@ class Alarm(threading.Thread):
             self.set_next_alarm(profile)
 
     def snooze(self, profile):
+        self.comms_system.logger.debug("snooze method called")
         task_id = str(self.profiles.index(profile))
         self.comms_system.log('Snoozing ' + task_id)
         self.comms_system.aio_send(task_id, 'snoozing')
         self.comms_system.ifttt('snoozing', task_id)
 
     def stop_alarm(self):
+        self.comms_system.logger.debug("stop alarm method called")
         for profile in self.profiles:
             if profile.running:
                 task_id = str(self.profiles.index(profile))
                 profile.running = False
                 if profile.alarm_on:
                     self.set_next_alarm(profile)
-                self.comms_system.log('Alarm stopped ' + task_id)
+                self.comms_system.logger.info('Alarm stopped ' + task_id)
                 self.comms_system.aio_send(task_id, 'awake')
                 self.comms_system.ifttt('awake', task_id)
 
@@ -133,7 +138,7 @@ class Alarm(threading.Thread):
                     task_id = str(self.profiles.index(p))
                     self.scheduler.remove_job(task_id)
                 except Exception as ee:
-                    print("Error in removal: " + ee.__str__())
+                    self.comms_system.logger.error("Error in removal: " + ee.__str__())
         elif 'weekend' in change:
             p.no_weekends = not p.no_weekends
         self.save_profiles()

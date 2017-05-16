@@ -2,18 +2,12 @@
 
 Home automation project using Raspberry Pi's.  
 Designed to use cloud-based variables in the Adafruit.io platform to manage a host of terminal nodes.
-Thanks a lot to [MattDy](https://github.com/mattdy/alarmpi/)
 
 ### To-Do List
-    - Bug fix: Why isn't laurpi logging? 
-    - Bug fix: Screen toggle issues: start by switching to linusg's rpi-backlight
-    - Bug fix: Don't set to the next day if current time is < alarm time [x]
-    - Review web calls - gradual 
     - Incorperate play_speech from https://github.com/mattdy/alarmpi/blob/master/MediaPlayer.py 
         - Festivus: https://learn.adafruit.com/speech-synthesis-on-the-raspberry-pi/speak
     - Phillips Hue https://github.com/studioimaginaire/phue
     - FontAwesome implementation
-    - Add quit button
     - MediaScreen
         - Kodi implementation
         - Bluetooth screen
