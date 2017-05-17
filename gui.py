@@ -70,7 +70,7 @@ class LightLabel(Label):
         comms = helper.get_comms()
         ## DISPLAY DETECTED USERS HERE
         self.text = "Hello Light Label!"
-
+        self.text = self.text + "\nHello again!"
 
 class SystemInfo(Label):
     def __init__(self, **kwargs):
