@@ -70,8 +70,9 @@ class LightLabel(Label):
         comms = helper.get_comms()
         ## DISPLAY DETECTED USERS HERE
         self.text = "Hello Light Label!"
-        self.text = self.text + "\nHello again!"
-
+        answer = comms.check_bluetooth('08:ec:a9:0f:88:3e')
+        self.text = self.text + str(answer)
+        
 class SystemInfo(Label):
     def __init__(self, **kwargs):
         # kivy stuff

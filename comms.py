@@ -61,7 +61,7 @@ class Comms(threading.Thread):
 
     # BLUETOOTH
     def check_bluetooth(self, target):
-        # check to see if Laura is home
+        # check to see if someone is home
         try:
             result = bluetooth.lookup_name(target, timeout=5)
             if result is not None:
