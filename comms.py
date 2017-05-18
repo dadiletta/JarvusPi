@@ -34,6 +34,7 @@ class Comms(threading.Thread):
         pygame.mixer.init()
         self.aio = Client(private.AIO_KEY)
 
+        '''
         # bluetooth in try-block to allow clients to run without pybluez module
         try:
             # noinspection PyUnresolvedReferences
@@ -41,6 +42,7 @@ class Comms(threading.Thread):
         except ImportError:
             self.logger.error("Failed to import bluetooth")
             pass
+        '''
 
     # PICKLE
     def save_obj(self , obj, name):
@@ -63,6 +65,7 @@ class Comms(threading.Thread):
     def check_bluetooth(self, target):
         # check to see if someone is home
         try:
+            import bluetooth
             result = bluetooth.lookup_name(target, timeout=5)
             if result is not None:
                 return True

@@ -4,6 +4,8 @@ Home automation project using Raspberry Pi's.
 Designed to use cloud-based variables in the Adafruit.io platform to manage a host of terminal nodes.
 
 ### To-Do List
+    - Experiment with new IFTTT feeds into Jarvus displays
+    - 
     - Incorperate play_speech from https://github.com/mattdy/alarmpi/blob/master/MediaPlayer.py 
         - Festivus: https://learn.adafruit.com/speech-synthesis-on-the-raspberry-pi/speak
     - Phillips Hue https://github.com/studioimaginaire/phue
@@ -45,13 +47,13 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
     - `sudo apt-get update`, `sudo apt-get upgrade`, `sudo rpi-update`
 - **Kivy and Things**
     - Follow install instructions: https://kivy.org/docs/installation/installation-rpi.html
-    - `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev pkg-config libgl1-mesa-dev libgles2-mesa-dev python-setuptools libgstreamer1.0-dev git-core gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa} python-dev blueman`
+        - `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev pkg-config libgl1-mesa-dev libgles2-mesa-dev python-setuptools libgstreamer1.0-dev git-core gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa} python-dev blueman`
     - `sudo python3 -m pip install Cython`
     - `sudo python3 -m pip install pygments docutils`
     - `sudo python3 -m pip install pygame`
         - If you're using a Mac to test this: https://pythonhosted.org/pyobjc/
     - `sudo python3 -m pip install kivy`
-    - `sudo nano /root/.kivy/config.ini`
+    - `sudo nano /root/.kivy/config.ini` - (after you run a Kivy app)
         - Goto `[input]` section and set it to:
         - `mouse = mouse`
         - `mtdev_%(name)s = probesysfs,provider=mtdev`
@@ -81,7 +83,7 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
     - `sudo nano /etc/udev/rules.d/backlight-permissions.rules`
     - Insert the line: 
     - `SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"`
-- **CEFPython3**
+- **CEFPython3**  --- EXPERIMENAL CHROME 
     - https://github.com/cztomczak/cefpython/blob/master/docs/Build-instructions.md
     - https://github.com/cztomczak/cefpython/blob/master/docs/Build-instructions.md#requirements
     - `~/cefpython/tools $ sudo python3 build.py 56.0`
@@ -90,10 +92,8 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
     - `touch log_jarvus.log`
     - `mkdir obj`
     - `touch obj/profiles.pkl`
-    - `sudo nano Private.py`  <-- paste your private vars
+    - `sudo nano private.py`  <-- paste your private vars
         
-            class Private(object):
-            
                 MAKER_SECRET = ""
                 AIO_KEY = ""
                 PROFILE1 = ''
@@ -103,7 +103,7 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
 - **Auto-Run Jarvus**
     - https://www.raspberrypi.org/documentation/linux/usage/cron.md
     - `sudo crontab -e` and paste the following:
-    - `@reboot sudo python3 /home/user/dex/JarvusPi/jarvus.py` (you may need to adjust your path)
+    - `@reboot sudo python3 /home/pi/JarvusPi/jarvus.py` (you may need to adjust your path)
     - `0 0 * * *  reboot` to make sure the script keeps running
 
 ## Customizing Jarvus
