@@ -1,6 +1,7 @@
 import helper
 import kivy
 import os
+import pyowm
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -50,6 +51,24 @@ class TriggerScreen(Screen):
 class PartyScreen(Screen):
     pass
 
+class WeatherLabel(Label):
+    def __init__(self, **kwargs):
+        # kivy stuff
+        super(WeatherLabel, self).__init__(**kwargs)
+        Clock.schedule_interval(self.update, 500)
+
+    def update(self, *args):
+        self.text = "Can you see me, Zack?"
+        owm = pyowm.OWM('d6b217578eb1e012d805e7490fac6560')  
+        observation = owm.weather_at_place("Cleveland")  
+        w = observation.get_weather()  
+        temperature = w.get_temperature('fahrenheit')  
+        tomorrow = pyowm.timeutils.tomorrow()  
+        wind = w.get_wind()  
+        self.text += w + "\n"   
+        self.text += wind + "\n"
+        self.text += temperature + "\n" 
+        self.text += tomorrow 
 
 class Profile1(Label):
     def __init__(self, **kwargs):
