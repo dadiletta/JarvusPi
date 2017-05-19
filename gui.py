@@ -67,7 +67,7 @@ class WeatherLabel(Label):
         temperature = w.get_temperature('fahrenheit')  
         tomorrow = pyowm.timeutils.tomorrow()  
         wind = w.get_wind()  
-        self.text = w
+        self.text = str(w)
 
 class Profile1(Label):
     def __init__(self, **kwargs):
