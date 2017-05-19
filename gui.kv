@@ -27,6 +27,22 @@ ScreenManagement:
 
 <PartyScreen>:
     name: 'PARTAAAAAAA'
+    BoxLayout: 
+        orientation: 'horizontal'
+        GridLayout:
+            size_hint_x: 3
+            size_hint_y: 1
+            cols:4
+            rows:2
+            spacing:5
+            padding:10
+            MyButton:
+                text: 'back home'
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'home'
+                    self.ding2()
+    
 
 <HomeScreen>:
     name: 'home'
