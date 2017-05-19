@@ -55,7 +55,7 @@ class WeatherLabel(Label):
     def __init__(self, **kwargs):
         # kivy stuff
         super(WeatherLabel, self).__init__(**kwargs)
-        Clock.schedule_interval(self.update, 500)
+        Clock.schedule_interval(self.update, 60)
 
     def update(self, *args):
         self.text = "Can you see me, Zack?"
@@ -65,10 +65,7 @@ class WeatherLabel(Label):
         temperature = w.get_temperature('fahrenheit')  
         tomorrow = pyowm.timeutils.tomorrow()  
         wind = w.get_wind()  
-        self.text += w + "\n"   
-        self.text += wind + "\n"
-        self.text += temperature + "\n" 
-        self.text += tomorrow 
+        self.text = w
 
 class Profile1(Label):
     def __init__(self, **kwargs):
