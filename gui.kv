@@ -12,6 +12,7 @@ ScreenManagement:
     MediaScreen:
     OptionScreen:
     TriggerScreen:
+    PartyScreen:
 
 # used for animated JARVUS logo
 <AnimatedLabel@ButtonBehavior+AsyncImage>
@@ -23,6 +24,9 @@ ScreenManagement:
     background_down: 'img/button_down.png'
     font_name: 'Roboto-Regular'
     on_press: app.backlight_on()
+
+<PartyScreen>:
+    name: 'PARTAAAAAAA'
 
 <HomeScreen>:
     name: 'home'
@@ -51,7 +55,7 @@ ScreenManagement:
                 # change text acc to but state. IF STATEMENTS IN KIVY!
                 text: "JARVUS" if ani.state == 'normal' else 'jarvus'
         GridLayout:
-            cols:4
+            cols:5
             rows:1
             spacing:10
             padding:10
@@ -79,6 +83,13 @@ ScreenManagement:
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'option'
                     self.ding1()
+            MyButton:
+                text: 'PARTAAAAAAA'
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'PARTAAAAAAA'
+                    self.ding1()
+                
         StatusBox:
             orientation: 'horizontal'
             cols:3

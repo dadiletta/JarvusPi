@@ -47,6 +47,9 @@ class ScreenManagement(ScreenManager):
 class TriggerScreen(Screen):
     pass
 
+class PartyScreen(Screen):
+    pass
+
 
 class Profile1(Label):
     def __init__(self, **kwargs):
