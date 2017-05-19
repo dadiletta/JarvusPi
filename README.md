@@ -42,9 +42,9 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
 ## Manual Installation
 
 - **Raspberry Pi Image**
-    - http://www.dexterindustries.com/howto/install-raspbian-for-robots-image-on-an-sd-card/
+    - https://www.raspberrypi.org/downloads/raspbian/
     - If rotating the screen is needed, add `lcd_rotate=2` line to /boot/config.txt
-    - `sudo apt-get update`, `sudo apt-get upgrade`, `sudo rpi-update`
+    - `sudo apt-get update`, `sudo apt-get upgrade`, `sudo rpi-update` or `sudo apt-get dist-upgrade`
 - **Kivy and Things**
     - Follow install instructions: https://kivy.org/docs/installation/installation-rpi.html
         - `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev pkg-config libgl1-mesa-dev libgles2-mesa-dev python-setuptools libgstreamer1.0-dev git-core gstreamer1.0-plugins-{bad,base,good,ugly} gstreamer1.0-{omx,alsa} python-dev blueman`
@@ -59,7 +59,7 @@ Designed to use cloud-based variables in the Adafruit.io platform to manage a ho
         - `mtdev_%(name)s = probesysfs,provider=mtdev`
         - `hid_%(name)s = probesysfs,provider=hidinput`
 - **PyBluez**
-    - Enable Bluetooth 
+    - (Troubleshooting Bluetooth)
         - start with Advanced Communications options provided by the Dexter Industries image
         - `sudo bluetoothctl`
         - `agent on`

@@ -64,7 +64,7 @@ class LightLabel(Label):
     def __init__(self, **kwargs):
         # kivy stuff
         super(LightLabel, self).__init__(**kwargs)
-        Clock.schedule_interval(self.update, 1)
+        Clock.schedule_interval(self.update, 5)
 
     def update(self, *args):
         comms = helper.get_comms()
