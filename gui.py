@@ -58,10 +58,12 @@ class WeatherLabel(Label):
         Clock.schedule_interval(self.update, 60)
 
     def update(self, *args):
+        comms = helper.get_comms()
         self.text = "Can you see me, Zack?"
         owm = pyowm.OWM('d6b217578eb1e012d805e7490fac6560')  
         observation = owm.weather_at_place("Cleveland")  
-        w = observation.get_weather()  
+        w = observation.get_weather()
+        comms.logger.info("Weather results: " + w)
         temperature = w.get_temperature('fahrenheit')  
         tomorrow = pyowm.timeutils.tomorrow()  
         wind = w.get_wind()  
